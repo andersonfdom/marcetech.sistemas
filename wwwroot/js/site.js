@@ -502,8 +502,11 @@ function inicializarSite() {
 
 
 function ValidarQtdeCadastros() {
+    document.getElementById('mensagemRetornoCadOrcamento').style.display = 'none';
+    document.getElementById('mensagemRetornoCadOrcamento').innerHTML = "";
+
     var qtdeCadastrosZerados = 0;
-    var msgCadastro = "Para criar orçamentos, é necessário realizar os seguintes cadastros: ";
+    var msgCadastro = "<p>Para criar orçamentos, é necessário realizar os seguintes cadastros: </p>";
 
     var linkCadVendedor = document.getElementById('linkCadVendedor');
     var LinkCadOrcamento = document.getElementById('LinkCadOrcamento');
@@ -528,38 +531,43 @@ function ValidarQtdeCadastros() {
 
             if (qtdeLojasCadastradas === 0) {
                 linkCadVendedor.style.display = 'none';
-                msgCadastro += "Lojas";
+                msgCadastro += "<p>Lojas</p>";
                 qtdeCadastrosZerados++;
             } else {
                 linkCadVendedor.style.display = 'block';
 
                 if (qtdeVendedoresCadastrados === 0) {
-                    msgCadastro += "Vendedores";
+                    msgCadastro += "<p>Vendedores</p>";
                     qtdeCadastrosZerados++;
                 }
             }
 
             if (qtdeAmbientesCadastrados == 0) {
-                msgCadastro += "Ambientes";
+                msgCadastro += "<p>Ambientes</p>";
                 qtdeCadastrosZerados++;
             }
 
             if (qtdeCategoriasCadastradas == 0) {
-                msgCadastro += "Categorias";
+                msgCadastro += "<p>Categorias</p>";
                 qtdeCadastrosZerados++;
             }
 
             if (qtdeItensCategoriasCadastradas == 0) {
-                msgCadastro += "Categorias/ Itens";
+                msgCadastro += "<p>Itens Categoria</p>";
                 qtdeCadastrosZerados++;
             }
 
             if (qtdeCadastrosZerados > 0) {
                 LinkCadOrcamento.style.display = 'none';
                 dashboardCardOrcamento.style.display = 'none';
+
+                document.getElementById('mensagemRetornoCadOrcamento').style.display = 'block';
+                document.getElementById('mensagemRetornoCadOrcamento').innerHTML = msgCadastro;
             } else {
                 LinkCadOrcamento.style.display = 'block';
                 dashboardCardOrcamento.style.display = 'block';
+                document.getElementById('mensagemRetornoCadOrcamento').style.display = 'none';
+                document.getElementById('mensagemRetornoCadOrcamento').innerHTML = "";
             }
         }
     };
