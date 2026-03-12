@@ -510,7 +510,7 @@ function ValidarQtdeCadastros() {
     var dashboardCardOrcamento = document.getElementById('dashboardCardOrcamento');
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/ValidarQtdeCadastros", false);
+    xhr.open("POST", "/ValidarQtdeCadastros", true);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
