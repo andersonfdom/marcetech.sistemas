@@ -511,6 +511,9 @@ function ValidarQtdeCadastros() {
     var linkCadVendedor = document.getElementById('linkCadVendedor');
     var LinkCadOrcamento = document.getElementById('LinkCadOrcamento');
     var dashboardCardOrcamento = document.getElementById('dashboardCardOrcamento');
+    var qtdeClientesCadastrados = document.getElementById('qtdeClientesCadastrados');
+    var qtdeOrcamentosEmAberto = document.getElementById('qtdeOrcamentosEmAberto');
+    var qtdeContratosFechados = document.getElementById('qtdeContratosFechados');
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/ValidarQtdeCadastros", true);
@@ -519,9 +522,17 @@ function ValidarQtdeCadastros() {
         if (xhr.status === 200) {
             var retorno = JSON.parse(xhr.responseText);
 
-            document.getElementById('qtdeClientesCadastrados').innerHTML = retorno.qtdeClientesCadastrados;
-            document.getElementById('qtdeOrcamentosEmAberto').innerHTML = retorno.qtdeOrcamentosEmAberto;
-            document.getElementById('qtdeContratosFechados').innerHTML = retorno.qtdeContratosFechados;
+            if (qtdeClientesCadastrados) {
+                qtdeClientesCadastrados.innerHTML = retorno.qtdeClientesCadastrados;
+            }
+
+            if (qtdeOrcamentosEmAberto) {
+                qtdeOrcamentosEmAberto.innerHTML = retorno.qtdeOrcamentosEmAberto;
+            }
+
+            if (qtdeContratosFechados) {
+                qtdeContratosFechados.innerHTML = retorno.qtdeContratosFechados;
+            }
 
             var qtdeAmbientesCadastrados = retorno.qtdeAmbientesCadastrados;
             var qtdeCategoriasCadastradas = retorno.qtdeCategoriasCadastradas;
@@ -530,11 +541,15 @@ function ValidarQtdeCadastros() {
             var qtdeVendedoresCadastrados = retorno.qtdeVendedoresCadastrados;
 
             if (qtdeLojasCadastradas === 0) {
-                linkCadVendedor.style.display = 'none';
+                if (linkCadVendedor) {
+                    linkCadVendedor.style.display = 'none';
+                }
                 msgCadastro += "<p>Lojas</p>";
                 qtdeCadastrosZerados++;
             } else {
-                linkCadVendedor.style.display = 'block';
+                if (linkCadVendedor) {
+                    linkCadVendedor.style.display = 'block';
+                }
 
                 if (qtdeVendedoresCadastrados === 0) {
                     msgCadastro += "<p>Vendedores</p>";
@@ -558,14 +573,14 @@ function ValidarQtdeCadastros() {
             }
 
             if (qtdeCadastrosZerados > 0) {
-                LinkCadOrcamento.style.display = 'none';
-                dashboardCardOrcamento.style.display = 'none';
+                if (LinkCadOrcamento) { LinkCadOrcamento.style.display = 'none'; }
+                if (dashboardCardOrcamento) { dashboardCardOrcamento.style.display = 'none'; }
 
                 document.getElementById('mensagemRetornoCadOrcamento').style.display = 'block';
                 document.getElementById('mensagemRetornoCadOrcamento').innerHTML = msgCadastro;
             } else {
-                LinkCadOrcamento.style.display = 'block';
-                dashboardCardOrcamento.style.display = 'block';
+                if (LinkCadOrcamento) { LinkCadOrcamento.style.display = 'block'; }
+                if (dashboardCardOrcamento) { dashboardCardOrcamento.style.display = 'block'; }
                 document.getElementById('mensagemRetornoCadOrcamento').style.display = 'none';
                 document.getElementById('mensagemRetornoCadOrcamento').innerHTML = "";
             }
